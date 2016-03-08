@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.myphone.CallActivity">
+    <!--android:background="#0099cc"-->
+
+        <LinearLayout
+            android:id="@+id/layout_btns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+            <TextView
+                android:gravity="center_horizontal"
+                android:id="@+id/text_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btn_accept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="acceptCall"
+                android:text="@string/accept_call"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_hangup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="hangupCall"
+                android:text="@string/cancel_call" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_video"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btn_hangup2"
+                android:text="@string/cancel_call"
+                android:onClick="hangupCall"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_above="@id/btn_hangup2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <SurfaceView
+                    android:id="@+id/surfaceIncomingVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <SurfaceView
+                    android:id="@+id/surfacePreviewCapture"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+            </FrameLayout>
+        </RelativeLayout>
+
+</RelativeLayout>

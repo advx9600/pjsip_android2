@@ -1,0 +1,19 @@
+stun重新配置问题-需重启
+粘贴板号码
+感光器设置
+第二次退出段错误问题
+mobile data receiver注册测试
+设置菜单需要变通和专家模式
+phone选项需要网络同步,比如同步单元的门口机
+alertdialog应该事先弹出输入法
+打电话时有系统电话来电
+等待铃声需要耳机和喇叭切换
+接电话时感光器检测
+手机振动参数需要细调
+用户名密码错误时,直接重新登陆
+点击通知时,跳转界面(如正在打电话,则需要跳到Call界面)
+CapturePreView有时不显示
+来电时按返回键后的处理
+ pjsua_acc.c !Error sending keep-alive packet: Network is unreachable [status=120101]
+ sip服务器cancel之后马上返回Request_Timeout
+ PreView摄像头好像未释放

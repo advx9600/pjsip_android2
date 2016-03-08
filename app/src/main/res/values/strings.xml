@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">MyPhone</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="action_settings">设置</string>
+    <string name="action_total_quit">完全退出</string>
+
+    <string name="username">用户名</string>
+    <string name="pwd">密码</string>
+    <string name="me">我</string>
+    <string name="phone">电话</string>
+    <string name="log_out">退出登陆</string>
+    <string name="domain">域名</string>
+    <string name="login">登陆</string>
+    <string name="no_account_create_one">没有帐号,创建一个帐号</string>
+    <string name="registering">注册中</string>
+    <string name="login_failed">注册失败</string>
+    <string name="action_quit_and_no_background">退出并关闭后台</string>
+    <string name="registered">已注册</string>
+    <string name="register_failed">注册失败</string>
+    <string name="pref_header_phone">电话</string>
+    <string name="pref_default_register_expire_time">3000</string>
+    <string name="pref_title_register_expire_time">注册过期时间</string>
+    <string name="pref_header_general">主要</string>
+    <string name="pref_default_log_level">1</string>
+    <string name="pref_title_log_level">打印Log等级(1-5)</string>
+    <string name="pref_default_stun_server">stun.pjsip.org</string>
+    <string name="pref_title_stun_server">Stun服务器</string>
+    <string name="pref_default_sip_port">6000</string>
+    <string name="pref_title_sip_port">Sip发送端口</string>
+    <string name="rival_number">对方号码</string>
+    <string name="cancel_call">取消</string>
+    <string name="add">增加</string>
+    <string name="confirm">确定</string>
+    <string name="nick_name">昵称</string>
+    <string name="inital_program">正在初始化</string>
+    <string name="del">删除</string>
+    <string name="modify">修改</string>
+
+    <string name="title_activity_call">CallActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_my_ad">MyAdActivity</string>
+
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="accept_call">接听</string>
+    <string name="action_advice">意见反馈</string>
+    <string name="is_calling">正在呼叫</string>
+    <string name="from">来自</string>
+    <string name="account_no_registered">帐户未注册成功</string>
+
+
+    <string name="sc_not_found">未找到用户</string>
+    <string name="sc_temporarily_unavailable">对方暂时不在线</string>
+    <string name="stun_enable">stun使能</string>
+    <string name="pref_default_stun_enable">true</string>
+    <string name="sc_busy_here">对方正忙</string>
+</resources>

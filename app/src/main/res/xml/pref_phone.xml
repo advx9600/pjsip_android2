@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_register_expire_time"
+        android:inputType="number"
+        android:key="register_expire_text"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_register_expire_time" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="@string/stun_enable"
+        android:key = "stun_server_enable" />
+
+    <EditTextPreference
+        android:dependency="stun_server_enable"
+    android:capitalize="words"
+    android:defaultValue="@string/pref_default_stun_server"
+    android:inputType="text"
+    android:key="stun_server"
+    android:maxLines="1"
+    android:selectAllOnFocus="true"
+    android:singleLine="true"
+    android:title="@string/pref_title_stun_server" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_sip_port"
+        android:inputType="number"
+        android:key="sip_port"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_sip_port" />
+</PreferenceScreen>
