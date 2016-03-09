@@ -14,6 +14,6 @@ alertdialog应该事先弹出输入法
 点击通知时,跳转界面(如正在打电话,则需要跳到Call界面)
 CapturePreView有时不显示
 来电时按返回键后的处理
- pjsua_acc.c !Error sending keep-alive packet: Network is unreachable [status=120101]
  sip服务器cancel之后马上返回Request_Timeout
  PreView摄像头好像未释放
+ 视频帧率调整

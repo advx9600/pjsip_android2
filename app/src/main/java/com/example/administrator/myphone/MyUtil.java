@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -70,4 +72,15 @@ public class MyUtil {
 //        }
 //        return text;
 //    }
+
+    /**
+     * 检测网络是否可用
+     * @return
+     */
+    public static boolean isNetworkConnected(Context con) {
+        ConnectivityManager cm = (ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        return ni != null && ni.isConnectedOrConnecting();
+    }
+
 }

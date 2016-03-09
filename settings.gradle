@@ -1,1 +1,1 @@
-include ':app', ':daocore', ':myapplication'
+include ':app', ':daocore'

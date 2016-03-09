@@ -219,12 +219,22 @@ public class CallActivity extends Activity implements MyAppObserver, SoundPool.O
             mSoundPool.stop(mSoundWaitId);
     }
 
+    private boolean mIsNeedHanup = true;
     private void makeCall(String id) {
-        myApp.makeCall(id);
+        if (!MyUtil.isNetworkConnected(this)){
+            mIsNeedHanup = false;
+            textInfo.setText(R.string.no_network_connected);
+        }else if (myApp.isCallAlreadyExist(id)){
+            mIsNeedHanup = false;
+            textInfo.setText(R.string.call_not_disconnected_completely);
+        }else{
+            mIsNeedHanup = true;
+            myApp.makeCall(id);
+        }
     }
 
     public void hangupCall(View v) {
-        myApp.hangup();
+        if (mIsNeedHanup) myApp.hangup();
         finish();
     }
 
@@ -236,7 +246,7 @@ public class CallActivity extends Activity implements MyAppObserver, SoundPool.O
         mBtnLayout.setVisibility(View.GONE);
         mVidLayout.setVisibility(View.VISIBLE);
         myApp.updateVideoWindow(mVidRender.getHolder().getSurface(), true);
-        myApp.updateCaptureVideoWindow(mVidCapture.getHolder().getSurface());
+//        myApp.updateCaptureVideoWindow(mVidCapture.getHolder().getSurface());
     }
 
     private void setVideoRotation() {
@@ -310,6 +320,8 @@ public class CallActivity extends Activity implements MyAppObserver, SoundPool.O
                         text=getString(R.string.sc_temporarily_unavailable);
                     }else  if( mLastCode == pjsip_status_code.PJSIP_SC_BUSY_HERE){
                         text=getString(R.string.sc_busy_here);
+                    }else if (mLastCode == pjsip_status_code.PJSIP_SC_OK){
+                        text = "";
                     }
                     else{
                         text = ""+mLastCode;

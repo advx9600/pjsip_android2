@@ -66,4 +66,6 @@
     <string name="stun_enable">stun使能</string>
     <string name="pref_default_stun_enable">true</string>
     <string name="sc_busy_here">对方正忙</string>
+    <string name="call_not_disconnected_completely">该呼叫未完全断开,请稍后再拔</string>
+    <string name="no_network_connected">无网络连接</string>
 </resources>

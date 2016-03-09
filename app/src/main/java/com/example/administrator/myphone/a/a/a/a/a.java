@@ -7,4 +7,26 @@ public class a {
     public static void b(String msg){
         android.util.Log.i("aaaa","aaaaa:"+msg);
     }
+
+    /* level 1 */
+    public static void b1(String msg){
+        android.util.Log.i("aaaa","aaaaa:"+msg);
+    }
+    /* level 2 */
+    public static void b2(String msg){
+        android.util.Log.i("aaaa","aaaaa:"+msg);
+    }
+    /* level 3 */
+    public static void b3(String msg){
+        android.util.Log.i("aaaa","aaaaa:"+msg);
+    }
+    /* level 4 */
+    public static void b4(String msg){
+        android.util.Log.i("aaaa","aaaaa:"+msg);
+    }
+    /* level 5 */
+    public static void b5(String msg){
+        android.util.Log.i("aaaa","aaaaa:"+msg);
+    }
+
 }
