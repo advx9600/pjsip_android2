@@ -215,9 +215,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     public final static String KEY_REGISTER_EXPIRE_TIME = "register_expire_text";
     public final static String KEY_ENABLE_STUN_SERVER = "stun_server_enable";
+    public final static String KEY_ENABLE_TURN_SERVER = "turn_server_enable";
+    public final static String KEY_ENABLE_ICE = "ice_enable";
     public final static String KEY_STUN_SERVER = "stun_server";
+    public final static String KEY_TURN_SERVER = "turn_server";
     public final static String KEY_SIP_PORT = "sip_port";
 
+    public final static String KEY_ENABLE_VIDEO = "video_enable";
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class PhonePreferenceFragment extends PreferenceFragment {
         @Override
@@ -234,6 +238,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference(KEY_STUN_SERVER));
             bindPreferenceSummaryToValue(findPreference(KEY_SIP_PORT));
             bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_STUN_SERVER));
+            bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_ICE));
+            bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_VIDEO));
+            bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_TURN_SERVER));
+            bindPreferenceSummaryToValue(findPreference(KEY_TURN_SERVER));
         }
     }
 
@@ -257,7 +265,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onDestroy();
         mCreateTimes--;
         if (mCreateTimes == 0 && mIsChanged) {
+            myApp.saveCurData();
             myApp.resetSipParam();
+            myApp.restoreSaveData();
         }
     }
 }

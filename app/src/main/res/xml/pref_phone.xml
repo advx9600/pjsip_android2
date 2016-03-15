@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="@string/video_enable"
+        android:key = "video_enable" />
+
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/pref_default_register_expire_time"
@@ -9,6 +14,11 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_title_register_expire_time" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="@string/ice_enable"
+        android:key = "ice_enable" />
 
     <CheckBoxPreference
         android:defaultValue="true"
@@ -25,6 +35,22 @@
     android:selectAllOnFocus="true"
     android:singleLine="true"
     android:title="@string/pref_title_stun_server" />
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="@string/turn_enable"
+        android:key = "turn_server_enable" />
+
+    <EditTextPreference
+        android:dependency="turn_server_enable"
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_turn_server"
+        android:inputType="text"
+        android:key="turn_server"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_turn_server" />
 
     <EditTextPreference
         android:capitalize="words"

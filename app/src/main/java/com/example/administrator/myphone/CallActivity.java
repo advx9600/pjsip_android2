@@ -289,6 +289,11 @@ public class CallActivity extends Activity implements MyAppObserver, SoundPool.O
     }
 
     @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setVideoRotation();
@@ -320,7 +325,7 @@ public class CallActivity extends Activity implements MyAppObserver, SoundPool.O
                         text=getString(R.string.sc_temporarily_unavailable);
                     }else  if( mLastCode == pjsip_status_code.PJSIP_SC_BUSY_HERE){
                         text=getString(R.string.sc_busy_here);
-                    }else if (mLastCode == pjsip_status_code.PJSIP_SC_OK){
+                    }else if (mLastCode == pjsip_status_code.PJSIP_SC_OK || mLastCode == pjsip_status_code.PJSIP_SC_DECLINE){
                         text = "";
                     }
                     else{

@@ -23,7 +23,7 @@
     <string name="registered">已注册</string>
     <string name="register_failed">注册失败</string>
     <string name="pref_header_phone">电话</string>
-    <string name="pref_default_register_expire_time">3000</string>
+    <string name="pref_default_register_expire_time">300</string>
     <string name="pref_title_register_expire_time">注册过期时间</string>
     <string name="pref_header_general">主要</string>
     <string name="pref_default_log_level">1</string>
@@ -68,4 +68,9 @@
     <string name="sc_busy_here">对方正忙</string>
     <string name="call_not_disconnected_completely">该呼叫未完全断开,请稍后再拔</string>
     <string name="no_network_connected">无网络连接</string>
+    <string name="ice_enable">ICE使能</string>
+    <string name="video_enable">视频使能</string>
+    <string name="turn_enable">Turn服务器使能</string>
+    <string name="pref_default_turn_server">120.24.77.212:3478</string>
+    <string name="pref_title_turn_server">Turn服务器</string>
 </resources>

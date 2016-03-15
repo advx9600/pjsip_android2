@@ -36,6 +36,7 @@ import org.pjsip.pjsua2.VideoPreview;
 import org.pjsip.pjsua2.VideoPreviewOpParam;
 import org.pjsip.pjsua2.VideoWindow;
 import org.pjsip.pjsua2.VideoWindowHandle;
+import org.pjsip.pjsua2.VideoWindowInfo;
 import org.pjsip.pjsua2.pj_log_decoration;
 import org.pjsip.pjsua2.pjmedia_type;
 import org.pjsip.pjsua2.pjsip_inv_state;
@@ -158,6 +159,8 @@ public class MyApp extends MyAppBaseCall {
             VideoPreviewOpParam vidPrevParam = new VideoPreviewOpParam();
             vidPrevParam.setWindow(vidWH);
             try {
+//                VideoWindowInfo info = currentCall.vidPrev.getVideoWindow().getInfo();
+//                a.b("height:"+info.getSize().getH()+",width:"+info.getSize().getW());
                 currentCall.vidPrev.start(vidPrevParam);
             } catch (Exception e) {
                 e.printStackTrace();
