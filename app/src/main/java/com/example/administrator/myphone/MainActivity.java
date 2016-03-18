@@ -1,9 +1,11 @@
 package com.example.administrator.myphone;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -112,6 +114,13 @@ public class MainActivity extends AppCompatActivity
     /* this is the last step */
     private void setInitData() {
         handler.sendEmptyMessage(MSG_REGISTE_NOTIFY);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (MyUtil.getErrLog(prefs).length() > 0){
+            MyUtil.alertConfirm(this,MyUtil.processErrMsg(this,MyUtil.getErrLog(prefs)));
+            MyUtil.setErrLog(prefs, "", true);
+        }
     }
 
     private final static int MSG_REGISTE_NOTIFY = 1;

@@ -201,7 +201,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * activity is showing a two-pane settings UI.
      */
     public final static String KEY_LOG_LEVEL = "log_level";
-
+    public final static String KEY_PROGRAM_ERROR_LOG = "program_error_log";
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GenneralPreferenceFragment extends PreferenceFragment {
         @Override
@@ -213,6 +213,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference(KEY_LOG_LEVEL));
+//            bindPreferenceSummaryToValue(findPreference(KEY_PROGRAM_ERROR_LOG));
         }
     }
 

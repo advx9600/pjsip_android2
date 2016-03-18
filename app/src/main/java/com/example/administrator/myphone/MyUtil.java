@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -59,6 +60,10 @@ public class MyUtil {
 //        ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
+    public static void alertConfirm( Context con,String msg) {
+        AlertDialog ad = new AlertDialog.Builder(con).setMessage(msg).show();
+    }
+
     public static void toast(Context context, int resourceId) {
         Toast.makeText(context,resourceId,Toast.LENGTH_LONG).show();
     }
@@ -92,4 +97,27 @@ public class MyUtil {
     }
 
 
+    public static void setErrLog(SharedPreferences pref, String log, boolean isForce) {
+        if (!isForce)
+            if (getErrLog(pref).trim().length() > 0) {
+                return;
+            }
+
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(SettingsActivity.KEY_PROGRAM_ERROR_LOG, log);
+        edit.commit();
+    }
+
+    public static String getErrLog(SharedPreferences pref){
+        return pref.getString(SettingsActivity.KEY_PROGRAM_ERROR_LOG,"").trim();
+    }
+
+    public static String processErrMsg(Context con,String errLog) {
+        String msg = "";
+        if (errLog.contains("Operation not permitted [status=120001]")){
+            msg += con.getString(R.string.peration_not_permitted_status_120001)+"\n";
+        }
+        msg += errLog;
+        return msg;
+    }
 }

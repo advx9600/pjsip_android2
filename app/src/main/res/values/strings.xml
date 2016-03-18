@@ -75,4 +75,6 @@
     <string name="pref_title_turn_server">Turn服务器</string>
     <string name="wakelock_enable">允许Waklock</string>
     <string name="wakelock_enable_comment">会比较消耗电量,但是来电都可以接收到</string>
+    <string name="program_err_log">程序报错信息</string>
+    <string name="peration_not_permitted_status_120001">网络不允许后台运行\n请在\"设置\"中选择\"电源选项\"\n再选择管理\"APP电池使用量\"\n选择对应APP,选择\"自定义\",使其允许保持连接</string>
 </resources>

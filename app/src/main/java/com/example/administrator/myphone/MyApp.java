@@ -99,7 +99,6 @@ class MyAccount extends Account {
 
 public class MyApp extends MyAppBaseCall {
     private static final String TAG ="MyApp" ;
-    MyAppBaseWakeLock mWakeLock;
 
     public void init(MyService myService, SharedPreferences prefs, TbUserDao userDao, TbBuddyDao buddyDao) {
         mCon = myService;
@@ -114,8 +113,6 @@ public class MyApp extends MyAppBaseCall {
     @Override
     public void deinit() {
         super.deinit();
-        mWakeLock.releaseWakeLock();
-        mWakeLock = null;
     }
 
     public void resetSipParam() {

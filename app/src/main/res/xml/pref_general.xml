@@ -9,4 +9,9 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_title_log_level" />
+
+    <!--<EditTextPreference-->
+        <!--android:title="@string/program_err_log"-->
+        <!--android:editable="false"-->
+        <!--android:key="program_error_log" />-->
 </PreferenceScreen>

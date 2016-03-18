@@ -13,9 +13,12 @@ public class MyAppBaseAlarm {
     private Context mCon;
     private AlarmManager mAlarmManager;
     PendingIntent pi;
-    public MyAppBaseAlarm(Context con){
+    private long mAlarmTime=0;
+
+    public MyAppBaseAlarm(Context con,long time){
         mCon= con;
         mAlarmManager = (AlarmManager) mCon.getSystemService(Service.ALARM_SERVICE);
+        mAlarmTime = time*1000;
     }
 
     public void startAlarm(){
@@ -23,7 +26,7 @@ public class MyAppBaseAlarm {
         intent.setClass(mCon, MyReceiver.class);
         intent.setAction(MyReceiver.ACTION_ALARM_REPEART);
         pi = PendingIntent.getBroadcast(mCon,0,intent,0);
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60, pi);
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), mAlarmTime, pi);
     }
 
     public void stopAlarm(){

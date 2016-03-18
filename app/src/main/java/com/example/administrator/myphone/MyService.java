@@ -95,56 +95,31 @@ public class MyService extends Service {
         mUserDao = dao.getTbUserDao();
         mBuddyDao = dao.getTbBuddyDao();
     }
-
-    class UdpThread extends Thread {
-        @Override
-        public void run() {
-
-            int t = 0;
-
-            t = 0;
-            try {
-                DatagramSocket client_socket = new DatagramSocket(6001);
-
-                InetAddress IPAddress = InetAddress.getByName("120.24.77.212");
-                while (mIsStaredForeground) {
-                    t++;
-                    DatagramPacket send_packet = new DatagramPacket((t + "").getBytes(), (t + "").length(), IPAddress, 6001);
-                    client_socket.send(send_packet);
-                    a.b("now send times:" + t);
-                    sleep(2000);
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /* while sleep mode,also need receive data and send data */
-    PowerManager.WakeLock wakeLock = null;
-    private void acquireWakeLock()
-    {
-        if (null == wakeLock)
-        {
-            PowerManager pm = (PowerManager)this.getSystemService(Context.POWER_SERVICE);
-            wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK| PowerManager.ON_AFTER_RELEASE, "MyService");
-            if (null != wakeLock)
-            {
-                wakeLock.acquire();
-            }
-        }
-    }
-
-    //释放设备电源锁
-    private void releaseWakeLock()
-    {
-        if (null != wakeLock)
-        {
-            wakeLock.release();
-            wakeLock = null;
-        }
-    }
+//
+//    class UdpThread extends Thread {
+//        @Override
+//        public void run() {
+//
+//            int t = 0;
+//
+//            t = 0;
+//            try {
+//                DatagramSocket client_socket = new DatagramSocket(6001);
+//
+//                InetAddress IPAddress = InetAddress.getByName("120.24.77.212");
+//                while (mIsStaredForeground) {
+//                    t++;
+//                    DatagramPacket send_packet = new DatagramPacket((t + "").getBytes(), (t + "").length(), IPAddress, 6001);
+//                    client_socket.send(send_packet);
+//                    a.b("now send times:" + t);
+//                    sleep(2000);
+//                }
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     private void runAsForeground() {
 //        mLoopThread.resetParam(ZheTuWifiActivity.MyParam.getUser(this), ZheTuWifiActivity.MyParam.getPwd(this), ZheTuWifiActivity.MyParam.getInterval(this),MyUtil.getWifiIp(this));
@@ -166,13 +141,10 @@ public class MyService extends Service {
 
         mIsStaredForeground = true;
 
-        acquireWakeLock();
     }
 
     private void stopAsForground() {
         if (!mIsStaredForeground) return;
-
-        releaseWakeLock();
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancel(NOTIFY_ID);

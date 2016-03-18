@@ -1,6 +1,7 @@
 package com.example.administrator.myphone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.example.administrator.myphone.a.a.a.a.a;
@@ -40,8 +41,10 @@ import gen.TbUserDao;
 class MyLogWriter extends LogWriter {
     private static final String TAG = "MyLogWriter";
     Context mCon;
-    public MyLogWriter(Context con){
+    SharedPreferences mPref;
+    public MyLogWriter(Context con,SharedPreferences pref){
         this.mCon = con;
+        mPref = pref;
     }
     @Override
     public void write(LogEntry entry) {
@@ -52,8 +55,9 @@ class MyLogWriter extends LogWriter {
                      Code:        120001
                      Description: Operation not permitted
                      */
-                    a.b2(TAG, "Operation not permitted,start help activity");
-
+                a.b2(TAG, "Operation not permitted,start help activity");
+                a.b("getString:"+MyUtil.getErrLog(mPref));
+                MyUtil.setErrLog(mPref,log, false);
             }
         }
         System.out.println(log);
@@ -85,6 +89,8 @@ public class MyAppBase  {
     protected TbBuddyDao mBuddyDao;
     protected SharedPreferences mPref;
 
+    /* for keep register  when in sleep */
+    private MyAppBaseAlarm mAlarm ;
     public void saveCurData(){
         observerListSave.clear();
         for (int i=0;i<observerList.size();i++){
@@ -112,7 +118,7 @@ public class MyAppBase  {
 
         /* Set log config. */
         LogConfig log_cfg = epConfig.getLogConfig();
-        logWriter = new MyLogWriter(mCon);
+        logWriter = new MyLogWriter(mCon,mPref);
         log_cfg.setWriter(logWriter);
         log_cfg.setDecor(log_cfg.getDecor() &
                 ~(pj_log_decoration.PJ_LOG_HAS_CR.swigValue() |
@@ -215,11 +221,15 @@ public class MyAppBase  {
         accCfg.getVideoConfig().setAutoShowIncoming(isVideo);
         accCfg.getVideoConfig().setAutoTransmitOutgoing(isVideo);
 
-        accCfg.getNatConfig().setTurnEnabled(mPref.getBoolean(SettingsActivity.KEY_ENABLE_TURN_SERVER,true));
+        accCfg.getNatConfig().setTurnEnabled(mPref.getBoolean(SettingsActivity.KEY_ENABLE_TURN_SERVER, true));
         accCfg.getNatConfig().setTurnConnType(pj_turn_tp_type.PJ_TURN_TP_UDP);
-        accCfg.getNatConfig().setTurnServer(mPref.getString(SettingsActivity.KEY_TURN_SERVER,mCon.getString(R.string.pref_default_turn_server)));
+        accCfg.getNatConfig().setTurnServer(mPref.getString(SettingsActivity.KEY_TURN_SERVER, mCon.getString(R.string.pref_default_turn_server)));
 
-        accCfg.getRegConfig().setTimeoutSec(Long.parseLong(mPref.getString(SettingsActivity.KEY_REGISTER_EXPIRE_TIME, mCon.getString(R.string.pref_default_register_expire_time))));
+        long timeOut = Long.parseLong(mPref.getString(SettingsActivity.KEY_REGISTER_EXPIRE_TIME, mCon.getString(R.string.pref_default_register_expire_time)));
+        accCfg.getRegConfig().setTimeoutSec(timeOut);
+        mAlarm = new MyAppBaseAlarm(mCon,timeOut);
+        mAlarm.startAlarm();
+
         regStatues = null;
 
         try {
@@ -247,6 +257,11 @@ public class MyAppBase  {
         * include Endpoint.java's Runtime.getRuntime().gc() method
         * */
 //        Runtime.getRuntime().gc();
+        if (mAlarm != null){
+            mAlarm.stopAlarm();
+            mAlarm = null;
+        }
+
         if (currentCall != null) {
             currentCall.delete();
             currentCall = null;
