@@ -48,19 +48,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_above="@id/btn_hangup2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <SurfaceView
+                    android:layout_centerInParent="true"
                     android:id="@+id/surfaceIncomingVideo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
                 <SurfaceView
                     android:id="@+id/surfacePreviewCapture"
+                    android:visibility="gone"
                     android:layout_width="100dp"
                     android:layout_height="100dp" />
-            </FrameLayout>
+            </RelativeLayout>
         </RelativeLayout>
 
 </RelativeLayout>

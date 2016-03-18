@@ -227,7 +227,10 @@ public class MyAppBase  {
 
         long timeOut = Long.parseLong(mPref.getString(SettingsActivity.KEY_REGISTER_EXPIRE_TIME, mCon.getString(R.string.pref_default_register_expire_time)));
         accCfg.getRegConfig().setTimeoutSec(timeOut);
-        mAlarm = new MyAppBaseAlarm(mCon,timeOut);
+        /*
+        * the network will time out quickly,so set small number instead
+        * */
+        mAlarm = new MyAppBaseAlarm(mCon,60);
         mAlarm.startAlarm();
 
         regStatues = null;

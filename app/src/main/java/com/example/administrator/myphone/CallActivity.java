@@ -54,6 +54,7 @@ public class CallActivity extends AppCompatActivity implements MyAppObserver, So
     public static final String EXTRA_BUDDY_ID = "buddy_id";
 
     private pjsip_status_code mLastCode;
+    private pjsip_inv_state mState;
 
     private String mStatues;
     private SoundPool mSoundPool = new SoundPool(5, AudioManager.STREAM_RING, 0);
@@ -247,7 +248,31 @@ public class CallActivity extends AppCompatActivity implements MyAppObserver, So
         mBtnLayout.setVisibility(View.GONE);
         mVidLayout.setVisibility(View.VISIBLE);
         myApp.updateVideoWindow(mVidRender.getHolder().getSurface(), true);
+        int sW =mVidRender.getWidth();
+        int sH =mVidRender.getHeight();
+        if ( sW> 0 && sH > 0){
+            try {
+                int setW = 100;
+                int setH = 100;
+                int  vW = (int) myApp.currentCall.vidWin.getInfo().getSize().getW();
+                int vH = (int) myApp.currentCall.vidWin.getInfo().getSize().getH();
+                if (sW > sH){
+                    /* landscape */
+                    setH = sH;
+                    setW = sH*vH/vW >sW?sW:sH*vH/vW ;
+                }else{
+                    setW = sW;
+                    setH = sW*vW/vH > sH?sH:sW*vW/vH;
+                }
+
+                mVidRender.getHolder().setFixedSize(setW,setH);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
 //        myApp.updateCaptureVideoWindow(mVidCapture.getHolder().getSurface());
+
     }
 
     private void setVideoRotation() {
@@ -311,7 +336,7 @@ public class CallActivity extends AppCompatActivity implements MyAppObserver, So
                 case 1:
                     if (mLastCode == pjsip_status_code.PJSIP_SC_RINGING) {
                         startRingBackSound();
-                    } else if (mLastCode == pjsip_status_code.PJSIP_SC_OK) {
+                    } else if (mLastCode == pjsip_status_code.PJSIP_SC_OK ) {
                         stopRingBackSound();
                         stopIncomingRing();
                         uiAcceptCall();
@@ -373,7 +398,7 @@ public class CallActivity extends AppCompatActivity implements MyAppObserver, So
                 pjsip_status_code code = ci.getLastStatusCode();
                 mStatues = "" + code;
                 mLastCode = code;
-                a.b("code:" + mLastCode);
+                mState = ci.getState();
                 handler.sendEmptyMessage(1);
             } catch (Exception e) {
 
