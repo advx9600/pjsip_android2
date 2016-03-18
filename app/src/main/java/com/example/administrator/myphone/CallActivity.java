@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -48,7 +49,7 @@ import gen.TbBuddy;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class CallActivity extends Activity implements MyAppObserver, SoundPool.OnLoadCompleteListener {
+public class CallActivity extends AppCompatActivity implements MyAppObserver, SoundPool.OnLoadCompleteListener {
 
     public static final String EXTRA_BUDDY_ID = "buddy_id";
 

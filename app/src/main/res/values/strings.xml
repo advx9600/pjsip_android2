@@ -73,4 +73,6 @@
     <string name="turn_enable">Turn服务器使能</string>
     <string name="pref_default_turn_server">120.24.77.212:3478</string>
     <string name="pref_title_turn_server">Turn服务器</string>
+    <string name="wakelock_enable">允许Waklock</string>
+    <string name="wakelock_enable_comment">会比较消耗电量,但是来电都可以接收到</string>
 </resources>

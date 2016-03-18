@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MyPhone.iml" filepath="$PROJECT_DIR$/MyPhone.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/daocore/daocore.iml" filepath="$PROJECT_DIR$/daocore/daocore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zztest/zztest.iml" filepath="$PROJECT_DIR$/zztest/zztest.iml" />
     </modules>
   </component>
 </project>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.example.administrator.myphone.a.a.a.a.a;
@@ -11,7 +12,7 @@ import com.example.administrator.myphone.a.a.a.a.a;
 /**
  * Created by Administrator on 2016/3/3.
  */
-public class WaitInitActivity extends Activity{
+public class WaitInitActivity extends AppCompatActivity {
     private MyApp  myApp= MyService.myApp;
 
     private boolean isExist = false;

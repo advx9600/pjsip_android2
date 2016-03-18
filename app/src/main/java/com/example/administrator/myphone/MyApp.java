@@ -58,13 +58,6 @@ import gen.TbUserDao;
  * Created by Administrator on 2016/2/24.
  */
 
-class MyLogWriter extends LogWriter {
-    @Override
-    public void write(LogEntry entry) {
-        System.out.println(entry.getMsg());
-    }
-}
-
 class MyAccount extends Account {
     public AccountConfig cfg;
 
@@ -105,6 +98,25 @@ class MyAccount extends Account {
 }
 
 public class MyApp extends MyAppBaseCall {
+    private static final String TAG ="MyApp" ;
+    MyAppBaseWakeLock mWakeLock;
+
+    public void init(MyService myService, SharedPreferences prefs, TbUserDao userDao, TbBuddyDao buddyDao) {
+        mCon = myService;
+        mMyService = myService;
+        observer = this;
+        mPref = prefs;
+        mUserDao = userDao;
+        mBuddyDao = buddyDao;
+        super.init();
+    }
+
+    @Override
+    public void deinit() {
+        super.deinit();
+        mWakeLock.releaseWakeLock();
+        mWakeLock = null;
+    }
 
     public void resetSipParam() {
 //        new Thread(){
@@ -117,16 +129,27 @@ public class MyApp extends MyAppBaseCall {
 
 
     public void setRegistration(boolean isTrue) {
+        setRegistration(isTrue, true);
+    }
+
+    public void setRegistration(boolean isTrue, boolean isForce) {
         if (mAcc != null) {
-            try {
-                mAcc.setRegistration(isTrue);
-            } catch (Exception e) {
-                e.printStackTrace();
+//            a.b("currentCall:"+currentCall+",isNetworkConnected:"+MyUtil.isNetworkConnected(mCon));
+            if (isForce ||
+                    (currentCall == null && MyUtil.isNetworkConnected(mCon))
+                    ) {
+                try {
+                    a.b4(TAG,"setRegistration:"+isTrue);
+                    mAcc.setRegistration(isTrue);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
-    private boolean isHasVideWindow(){
+
+    private boolean isHasVideWindow() {
         if (currentCall != null &&
                 currentCall.vidWin != null &&
                 currentCall.vidPrev != null) {
@@ -134,8 +157,9 @@ public class MyApp extends MyAppBaseCall {
         }
         return false;
     }
-    public void stopVideoWindow(){
-        if (isHasVideWindow()){
+
+    public void stopVideoWindow() {
+        if (isHasVideWindow()) {
             try {
                 currentCall.vidPrev.stop();
             } catch (Exception e) {
@@ -152,7 +176,7 @@ public class MyApp extends MyAppBaseCall {
         }
     }
 
-    public void updateCaptureVideoWindow(Surface surface){
+    public void updateCaptureVideoWindow(Surface surface) {
         if (isHasVideWindow()) {
             VideoWindowHandle vidWH = new VideoWindowHandle();
             vidWH.getHandle().setWindow(surface);
@@ -217,12 +241,12 @@ public class MyApp extends MyAppBaseCall {
     }
 
     public CallInfo getCallInfo() {
-        if (currentCall==null){
-            return  null;
+        if (currentCall == null) {
+            return null;
         }
         CallInfo info = null;
         try {
-            info=currentCall.getInfo();
+            info = currentCall.getInfo();
         } catch (Exception e) {
             e.printStackTrace();
         }

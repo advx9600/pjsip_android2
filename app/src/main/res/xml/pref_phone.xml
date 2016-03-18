@@ -5,6 +5,14 @@
         android:title="@string/video_enable"
         android:key = "video_enable" />
 
+    <!--<CheckBoxPreference-->
+        <!--android:enabled="false"-->
+        <!--android:visibility="invisible"-->
+        <!--android:defaultValue="false"-->
+        <!--android:title="@string/wakelock_enable"-->
+        <!--android:summary="@string/wakelock_enable_comment"-->
+        <!--android:key = "wakelock_enable" />-->
+
     <EditTextPreference
         android:capitalize="words"
         android:defaultValue="@string/pref_default_register_expire_time"

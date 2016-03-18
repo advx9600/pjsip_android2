@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -30,6 +31,7 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
+    private static final String TAG = "SettingsActivity";
     private MyApp myApp = MyService.myApp;
     /**
      * A preference value change listener that updates the preference's summary
@@ -42,10 +44,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
-            if (preference.getSummary() != null && !stringValue.equals(preference.getSummary().toString())) {
-                mIsChanged = true;
-            }
-            if (preference instanceof CheckBoxPreference){
+            if (preference instanceof EditTextPreference ) {
+                if (preference.getSummary() != null && !stringValue.equals(preference.getSummary().toString())) {
+                    mIsChanged = true;
+                }
+            }else if (preference instanceof CheckBoxPreference){
                 if (!stringValue.equals(""+((CheckBoxPreference) preference).isChecked())){
                     mIsChanged=true;
                 }
@@ -220,6 +223,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public final static String KEY_STUN_SERVER = "stun_server";
     public final static String KEY_TURN_SERVER = "turn_server";
     public final static String KEY_SIP_PORT = "sip_port";
+//    public final static String KEY_ENABLE_WAKELOCK = "wakelock_enable";
 
     public final static String KEY_ENABLE_VIDEO = "video_enable";
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -242,6 +246,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_VIDEO));
             bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_TURN_SERVER));
             bindPreferenceSummaryToValue(findPreference(KEY_TURN_SERVER));
+//            bindPreferenceSummaryToValue(findPreference(KEY_ENABLE_WAKELOCK));
         }
     }
 
@@ -265,6 +270,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onDestroy();
         mCreateTimes--;
         if (mCreateTimes == 0 && mIsChanged) {
+            a.b4(TAG,"reset sip lib");
             myApp.saveCurData();
             myApp.resetSipParam();
             myApp.restoreSaveData();

@@ -2,11 +2,13 @@ package com.example.administrator.myphone;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -82,5 +84,12 @@ public class MyUtil {
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnectedOrConnecting();
     }
+
+    public static void setNeverSleepPolicy(Context context){
+        ContentResolver cr = context.getContentResolver();
+        int set = android.provider.Settings.System.WIFI_SLEEP_POLICY_NEVER;
+        android.provider.Settings.System.putInt(cr, android.provider.Settings.System.WIFI_SLEEP_POLICY, set);
+    }
+
 
 }
