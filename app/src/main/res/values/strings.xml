@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyPhone</string>
+    <string name="app_name">云对讲</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -28,7 +28,7 @@
     <string name="pref_header_general">主要</string>
     <string name="pref_default_log_level">1</string>
     <string name="pref_title_log_level">打印Log等级(1-5)</string>
-    <string name="pref_default_stun_server">stun.pjsip.org</string>
+    <string name="pref_default_stun_server">120.24.77.212</string>
     <string name="pref_title_stun_server">Stun服务器</string>
     <string name="pref_default_sip_port">6000</string>
     <string name="pref_title_sip_port">Sip发送端口</string>
