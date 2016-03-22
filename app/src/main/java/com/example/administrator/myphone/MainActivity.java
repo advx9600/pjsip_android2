@@ -23,10 +23,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.administrator.myphone.a.a.a.a.a;
+import com.example.administrator.myphone.a.a.a.a.d;
 import com.example.administrator.myphone.dao.TbUserDaoImp;
 import com.example.administrator.myphone.db.DB;
 import com.example.administrator.myphone.fragment.MeFragment;
 import com.example.administrator.myphone.fragment.PhoneFragment;
+import com.loopj.android.http.AsyncHttpClient;
 
 import org.pjsip.pjsua2.CallOpParam;
 import org.pjsip.pjsua2.pjsip_status_code;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity
     private void stopMyService() {
         MyUtil.stopMyService(this);
     }
+
+    private static AsyncHttpClient mHTTPClient = new AsyncHttpClient();
 
     /* wait for myApp init */
     private boolean isNeedWait() {
@@ -227,6 +231,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.action_log_out) {
             myApp.logOut(this);
             finish();
+        } else if (id == R.id.action_upgrade){
+            /* check and then download */
+            mHTTPClient.get("http://120.24.77.212/getInfo.php",new d(this,"http://120.24.77.212/download.php"));
         }
 
         return super.onOptionsItemSelected(item);

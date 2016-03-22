@@ -17,6 +17,7 @@ import org.pjsip.pjsua2.EpConfig;
 import org.pjsip.pjsua2.LogConfig;
 import org.pjsip.pjsua2.LogEntry;
 import org.pjsip.pjsua2.LogWriter;
+import org.pjsip.pjsua2.PresenceStatus;
 import org.pjsip.pjsua2.StringVector;
 import org.pjsip.pjsua2.TransportConfig;
 import org.pjsip.pjsua2.UaConfig;
@@ -26,6 +27,11 @@ import org.pjsip.pjsua2.pjsip_inv_state;
 import org.pjsip.pjsua2.pjsip_status_code;
 import org.pjsip.pjsua2.pjsip_transport_type_e;
 
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -89,6 +95,7 @@ public class MyAppBase  {
     protected TbBuddyDao mBuddyDao;
     protected SharedPreferences mPref;
 
+    protected DatagramSocket mKeepAliveSocket;
     /* for keep register  when in sleep */
     private MyAppBaseAlarm mAlarm ;
     public void saveCurData(){
@@ -139,6 +146,10 @@ public class MyAppBase  {
                 /* Create transports. */
         int port = Integer.parseInt(mPref.getString(SettingsActivity.KEY_SIP_PORT, mCon.getString(R.string.pref_default_sip_port)));
         try {
+//            mKeepAliveSocket=new DatagramSocket((int) sipTpConfig.getPort());
+//                        mKeepAliveSocket=new DatagramSocket((int) sipTpConfig.getPort());
+//            mKeepAliveSocket.setReuseAddress(true);
+
             sipTpConfig.setPort(port);
             ep.transportCreate(pjsip_transport_type_e.PJSIP_TRANSPORT_UDP,
                     sipTpConfig);
@@ -230,7 +241,7 @@ public class MyAppBase  {
         /*
         * the network will time out quickly,so set small number instead
         * */
-        mAlarm = new MyAppBaseAlarm(mCon,60);
+        mAlarm = new MyAppBaseAlarm(mCon,timeOut);
         mAlarm.startAlarm();
 
         regStatues = null;
@@ -260,6 +271,11 @@ public class MyAppBase  {
         * include Endpoint.java's Runtime.getRuntime().gc() method
         * */
 //        Runtime.getRuntime().gc();
+        if (mKeepAliveSocket !=null) {
+            mKeepAliveSocket.close();
+            mKeepAliveSocket = null;
+        }
+
         if (mAlarm != null){
             mAlarm.stopAlarm();
             mAlarm = null;
@@ -290,7 +306,31 @@ public class MyAppBase  {
         ep = null;
         observerList.clear();
     }
+    /*
+    * when mobile goto sleep mode,the port will discard,so must keep alive
+    * */
+    public void setKeepPortAlive(){
+        if (mAcc !=null && mTbUser !=null){
+            new Thread(){
+                public void run(){
+                    try {
+//                        mAcc.setRegistration();
 
-
+//                        byte data[] = "KeepAlive".getBytes();
+//                        String ip = mTbUser.getDomain().split(":")[0];
+//                        String port = "5060";
+//                        if (mTbUser.getDomain().split(":").length>1){
+//                            port =mTbUser.getDomain().split(":")[1];
+//                        }
+//                        InetAddress serverAddress = InetAddress.getByName(ip);
+//                        DatagramPacket pac =new DatagramPacket(data , data.length , serverAddress , Integer.parseInt(port));
+//                        mKeepAliveSocket.send(pac);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+    }
 
 }

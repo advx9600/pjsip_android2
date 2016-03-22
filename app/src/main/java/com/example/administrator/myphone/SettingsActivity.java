@@ -197,11 +197,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     /**
+     * this keys not in UI
+     */
+    public final static String KEY_PROGRAM_ERROR_LOG = "program_error_log";
+    public final static String KEY_DOWNLOAD_ID = "download_id";
+    /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
     public final static String KEY_LOG_LEVEL = "log_level";
-    public final static String KEY_PROGRAM_ERROR_LOG = "program_error_log";
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GenneralPreferenceFragment extends PreferenceFragment {
         @Override

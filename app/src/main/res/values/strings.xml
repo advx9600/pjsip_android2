@@ -77,4 +77,8 @@
     <string name="wakelock_enable_comment">会比较消耗电量,但是来电都可以接收到</string>
     <string name="program_err_log">程序报错信息</string>
     <string name="peration_not_permitted_status_120001">网络不允许后台运行\n请在\"设置\"中选择\"电源选项\"\n再选择管理\"APP电池使用量\"\n选择对应APP,选择\"自定义\",使其允许保持连接</string>
+    <string name="action_upgrade">升级</string>
+    <string name="alread_the_lastest_ver">已经是最新版本</string>
+    <string name="upgrade_failed">升级失败</string>
+    <string name="already_start_download">已经开始下载</string>
 </resources>

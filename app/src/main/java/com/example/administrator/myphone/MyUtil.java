@@ -2,15 +2,20 @@ package com.example.administrator.myphone;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +66,7 @@ public class MyUtil {
     }
 
     public static void alertConfirm( Context con,String msg) {
-        AlertDialog ad = new AlertDialog.Builder(con).setMessage(msg).show();
+        AlertDialog ad = new AlertDialog.Builder(con).setMessage(msg).setPositiveButton(android.R.string.ok,null).show();
     }
 
     public static void toast(Context context, int resourceId) {
@@ -119,5 +124,57 @@ public class MyUtil {
         }
         msg += errLog;
         return msg;
+    }
+
+    public static boolean isWifiConnected(Context context)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if(wifiNetworkInfo.isConnected())
+        {
+            return true ;
+        }
+
+        return false ;
+    }
+
+    public static String getVer(Context context) {
+        String ver="";
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            ver =""+pi.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ver;
+    }
+
+    public static void startDownloadApk(Context con, String downUri) {
+        DownloadManager downloadManager = (DownloadManager) con.getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(downUri);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        String sDest = "file://"+android.os.Environment.getExternalStorageDirectory().toString()+"/Download/Install.apk";
+        request.setDestinationUri(Uri.parse(sDest));
+        long id=downloadManager.enqueue(request);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(con);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(SettingsActivity.KEY_DOWNLOAD_ID,id+"");
+        edit.commit();
+    }
+
+    public static String getDownloadId(Context con){
+        return PreferenceManager.getDefaultSharedPreferences(con).getString(SettingsActivity.KEY_DOWNLOAD_ID,"");
+    }
+
+    public static void installAPK(Context context,String sId) {
+        Long id = Long.parseLong(sId);
+        DownloadManager dManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        Intent install = new Intent(Intent.ACTION_VIEW);
+        Uri downloadFileUri = dManager.getUriForDownloadedFile(id);
+        install.setDataAndType(downloadFileUri, "application/vnd.android.package-archive");
+        install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(install);
     }
 }
